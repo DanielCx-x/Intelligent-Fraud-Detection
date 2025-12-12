@@ -118,7 +118,7 @@ Sample 3: Risk Score: 0.1240 => Prediction: Normal
 
 ## Pre-trained Model
 You can download the pre-trained model weights from the link below and place them in the checkpoints/ folder: Download Link Placeholder.
-
+https://drive.google.com/drive/folders/1Y0416OiOJhF2ZHpkT1GRpOLZumlwpHbG?dmr=1&ec=wgc-drive-hero-goto
 
 ## Reproducibility & Configuration
 To ensure reproducibility, we adhered to the following setup:
