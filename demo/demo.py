@@ -8,12 +8,12 @@ import joblib
 # Add src to path to import modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
-from model import SimpleMLP, Autoencoder, VAE
+from model import SimpleMLP, Autoencoder
 
 def get_args():
     parser = argparse.ArgumentParser(description="Fraud Detection Demo Inference")
     parser.add_argument('--model', type=str, default='mlp_weighted', 
-                        choices=['rf', 'mlp_weighted', 'mlp_smote', 'ae', 'vae'],
+                        choices=['rf', 'mlp_weighted', 'mlp_smote', 'ae'],
                         help='Choose which model to use for demo')
     return parser.parse_args()
 
@@ -23,13 +23,11 @@ def run_demo():
     input_dim = 30  # Standard for Credit Card dataset (Time + V1-V28 + Amount)
     
     # Define model path and type mapping.
-    # 'type': 'supervised' or 'unsupervised'
     model_config = {
         'rf':           {'path': 'checkpoints/random_forest.joblib', 'type': 'sklearn'},
         'mlp_weighted': {'path': 'checkpoints/mlp_weighted.pth',   'type': 'pytorch_sup', 'class': SimpleMLP},
         'mlp_smote':    {'path': 'checkpoints/mlp_smote.pth',      'type': 'pytorch_sup', 'class': SimpleMLP},
         'ae':           {'path': 'checkpoints/autoencoder.pth',    'type': 'pytorch_unsup', 'class': Autoencoder},
-        'vae':          {'path': 'checkpoints/vae.pth',            'type': 'pytorch_unsup', 'class': VAE}
     }
 
     config = model_config[args.model]
@@ -48,8 +46,10 @@ def run_demo():
     # Simulate data processed by StandardScaler (mean 0, variance 1).
     sample_inputs = np.random.randn(5, input_dim).astype(np.float32)
     
+    # Initialize fraud_scores
+    fraud_scores = []
+    
     # 3. Load the model and perform inference.
-    predictions = []
     
     # --- Case A: Scikit-Learn (Random Forest) ---
     if config['type'] == 'sklearn':
@@ -57,7 +57,9 @@ def run_demo():
         model = joblib.load(model_path)
         # Get the probability of belonging to class 1 (Fraud).
         probs = model.predict_proba(sample_inputs)[:, 1]
-        predictions = probs
+        
+        # Set fraud_scores
+        fraud_scores = probs
 
     # --- Case B: PyTorch Models ---
     else:
@@ -73,9 +75,11 @@ def run_demo():
             if config['type'] == 'pytorch_sup':
                 logits = model(sample_tensor)
                 probs = torch.sigmoid(logits).cpu().numpy().ravel()
-                predictions = probs
+                
+                # Set fraud_scores
+                fraud_scores = probs
             
-            # -- B2: Unsupervised (AE / VAE) --
+            # -- B2: Unsupervised (AE) --
             elif config['type'] == 'pytorch_unsup':
                 if args.model == 'vae':
                     recon_x, _, _ = model(sample_tensor)
@@ -83,10 +87,9 @@ def run_demo():
                     recon_x = model(sample_tensor)
                 
                 # Calculate the reconstruction error (MSE) as anomaly score.
-                # dim=1 Calculate the average error for all features of each sample.
                 mse = torch.mean(torch.pow(sample_tensor - recon_x, 2), dim=1).cpu().numpy()
-                # In real-world applications, this should be divided by the maximum MSE of the training set, or determined based on a threshold.
-                # For the demo purposes, we'll use Min-Max Scaling.
+                
+                # Normalize MSE to 0-1 range for demo consistency
                 if mse.max() - mse.min() > 0:
                     fraud_scores = (mse - mse.min()) / (mse.max() - mse.min())
                 else:
