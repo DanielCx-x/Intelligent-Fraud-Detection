@@ -45,7 +45,7 @@ This project uses the [Kaggle Credit Card Fraud Detection Dataset](https://www.k
 
 Download creditcard.csv from the link above.
 Place creditcard.csv inside the data/ folder.
-    Note: If you only want to run the demo.py, you do not need the dataset.
+- Note: If you only want to run the demo.py, you do not need the dataset.
 
 ## How to Run
 
