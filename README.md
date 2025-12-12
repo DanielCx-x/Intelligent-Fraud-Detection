@@ -56,33 +56,33 @@ The `main.py` script supports training specific models using the `--model` argum
 **Usage:**
 ```bash
 python src/main.py --model <MODEL_NAME> --epochs <NUM_EPOCHS>
-Available Options:
+```
 
-rf: Random Forest
+**Available Options:**
 
-mlp_weighted: MLP with Weighted Loss
+**rf:** Random Forest
 
-mlp_smote: MLP with SMOTE Oversampling
+**mlp_weighted:** MLP with Weighted Loss
 
-ae: Autoencoder
+**mlp_smote:** MLP with SMOTE Oversampling
 
-vae: Variational Autoencoder
+**ae:** Autoencoder
 
-all: Train and evaluate ALL models sequentially.
+**vae:** Variational Autoencoder
 
-Examples:
+**all:** Train and evaluate ALL models sequentially.
+
+
+**Examples:**
 
 Train the Weighted MLP:
-
-Bash
-
+```bash
 python src/main.py --model mlp_weighted --epochs 10
+```
 Train all models to compare results:
-
-Bash
-
+```bash
 python src/main.py --model all --epochs 10
-
+```
 ### Demo
 After training, run the demo script to simulate inference on random samples:
 
