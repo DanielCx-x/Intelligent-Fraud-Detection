@@ -84,10 +84,11 @@ Train all models to compare results:
 python src/main.py --model all --epochs 10
 ```
 ### Demo
-After training, run the demo script to simulate inference on random samples:
+The demo script simulates inference on sample data. It works out-of-the-box (no dataset required) by generating synthetic samples or using hardcoded examples.
 
+To run the demo:
 ```bash
-python demo.py
+python demo/demo.py
 ```
 
 ## Expected Output
@@ -105,10 +106,7 @@ Sample 2: Fraud Probability: 0.9812 => Prediction: Fraud
 ```
 
 ## Pre-trained Model
-
-You can download a pre-trained model checkpoint here: **(https://colab.research.google.com/drive/1l8F5WD3G_jwO_147vo6FMxInT3vNkljN)**.
-
-> **Note:** Run `src/main.py` locally to generate `checkpoints/mlp_weighted.pth` immediately.
+You can download the pre-trained model weights from the link below and place them in the checkpoints/ folder: Download Link Placeholder.
 
 
 ## Reproducibility & Configuration
