@@ -27,6 +27,7 @@ The goal is to detect fraudulent transactions (Class 1) among a vast majority of
 It is recommended to use a virtual environment.
 
 Bash
+
 # Create env
 python -m venv venv
 
