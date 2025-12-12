@@ -93,15 +93,13 @@ python demo/demo.py
 
 ## Expected Output
 
-Running the demo script should produce output similar to:
+The results will be printed to the console and saved to `results/demo_<model>.txt`.
 
-```plaintext
-Loading data sample...
-Running Inference...
-
---- Demo Results ---
-Sample 1: Fraud Probability: 0.0003 => Prediction: Normal
-Sample 2: Fraud Probability: 0.9812 => Prediction: Fraud
+*Example output (works for ALL models):*
+```text
+Sample 1: Risk Score: 0.0003 => Prediction: Normal
+Sample 2: Risk Score: 0.9812 => Prediction: Fraud
+Sample 3: Risk Score: 0.1240 => Prediction: Normal
 ...
 ```
 
