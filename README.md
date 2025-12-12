@@ -1,6 +1,6 @@
 # Intelligent Credit Card Fraud Detection
 
-This repository contains a PyTorch implementation of various Deep Learning models for Credit Card Fraud Detection. The project addresses the problem of highly imbalanced datasets using Weighted Loss MLPs, SMOTE, and Autoencoder/VAE architectures.
+This repository contains a PyTorch implementation of various Deep Learning models for Credit Card Fraud Detection. The project addresses the problem of highly imbalanced datasets using Weighted Loss MLPs, SMOTE, and Autoencoder architectures.
 
 ## Project Overview
 
@@ -10,8 +10,7 @@ The goal is to detect fraudulent transactions (Class 1) among a vast majority of
 2.  **MLP with Weighted Loss:** Handles class imbalance by penalizing mistakes on the minority class more heavily.
 3.  **MLP with SMOTE:** Uses synthetic oversampling to balance the training data before feeding it into the MLP.
 4.  **Autoencoder (AE):** Unsupervised learning trained only on normal transactions; detects fraud based on high reconstruction error.
-5.  **Variational Autoencoder (VAE):** A probabilistic approach to anomaly detection.
-
+   
 ## Directory Structure
 
 - `src/`: Contains source code for models, utility functions, and the training loop.
@@ -67,8 +66,6 @@ python src/main.py --model <MODEL_NAME> --epochs <NUM_EPOCHS>
 **mlp_smote:** MLP with SMOTE Oversampling
 
 **ae:** Autoencoder
-
-**vae:** Variational Autoencoder
 
 **all:** Train and evaluate ALL models sequentially.
 
