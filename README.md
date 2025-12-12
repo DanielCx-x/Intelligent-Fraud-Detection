@@ -6,8 +6,11 @@ This repository contains a PyTorch implementation of various Deep Learning model
 
 The goal is to detect fraudulent transactions (Class 1) among a vast majority of normal transactions (Class 0). The codebase compares:
 
-1.  **Simple MLP with Weighted Loss**: Handles class imbalance by penalizing mistakes on the minority class more heavily.
-2.  **Variational Autoencoder (VAE)**: Treats fraud detection as an anomaly detection problem.
+1.  **Random Forest (Baseline):** A strong baseline using standard supervised learning.
+2.  **MLP with Weighted Loss:** Handles class imbalance by penalizing mistakes on the minority class more heavily.
+3.  **MLP with SMOTE:** Uses synthetic oversampling to balance the training data before feeding it into the MLP.
+4.  **Autoencoder (AE):** Unsupervised learning trained only on normal transactions; detects fraud based on high reconstruction error.
+5.  **Variational Autoencoder (VAE):** A probabilistic approach to anomaly detection.
 
 ## Directory Structure
 
@@ -23,41 +26,52 @@ The goal is to detect fraudulent transactions (Class 1) among a vast majority of
 
 It is recommended to use a virtual environment.
 
-```bash
 # Create env
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Activate env
+# On Windows:
+venv\Scripts\activate
+# On Mac/Linux:
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
-```
 
-### 2\. Dataset
+### 2. Dataset
 
 This project uses the [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud).
 
-1.  Download `creditcard.csv` from the link above.
-2.  Place `creditcard.csv` inside the `data/` folder.
+Download creditcard.csv from the link above.
+Place creditcard.csv inside the data/ folder.
+    Note: If you only want to run the demo.py, you do not need the dataset.
 
 ## How to Run
 
 ### Training
 
-To train the main MLP model and evaluate it on the test set:
+Training
+The main.py script supports training specific models using the --model argument.
 
-```bash
-python src/main.py --epochs 10
-```
+Usage:
+python src/main.py --model <MODEL_NAME> --epochs <NUM_EPOCHS>
 
-This will:
+Available Options:
+rf: Random Forest
+mlp_weighted: MLP with Weighted Loss
+mlp_smote: MLP with SMOTE Oversampling
+ae: Autoencoder
+vae: Variational Autoencoder
+all: Train and evaluate ALL models sequentially.
 
-- Preprocess the data.
-- Train the model.
-- Save the weights to `checkpoints/mlp_weighted.pth`.
-- Print evaluation metrics (AUPRC, Recall, Precision, F1).
+Examples:
+Train the Weighted MLP:
+python src/main.py --model mlp_weighted --epochs 10
+
+Train all models to compare results:
+python src/main.py --model all --epochs 10
 
 ### Demo
-
 After training, run the demo script to simulate inference on random samples:
 
 ```bash
