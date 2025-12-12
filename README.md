@@ -26,20 +26,21 @@ The goal is to detect fraudulent transactions (Class 1) among a vast majority of
 
 It is recommended to use a virtual environment.
 
-Bash
-
+`
 # Create env
 python -m venv venv
-
+`
+`
 # Activate env
 # On Windows:
 venv\Scripts\activate
 # On Mac/Linux:
 source venv/bin/activate
-
+`
+`
 # Install dependencies
 pip install -r requirements.txt
-
+`
 ### 2. Dataset
 
 This project uses the [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud).
