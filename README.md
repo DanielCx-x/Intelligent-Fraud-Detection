@@ -22,22 +22,20 @@ The goal is to detect fraudulent transactions (Class 1) among a vast majority of
 
 ## Setup Instructions
 
-### 1. Environment
-
+1. Environment
 It is recommended to use a virtual environment.
 
-`
+Bash
+
 # Create env
 python -m venv venv
-`
-`
+
 # Activate env
 # On Windows:
 venv\Scripts\activate
 # On Mac/Linux:
 source venv/bin/activate
-`
-`
+
 # Install dependencies
 pip install -r requirements.txt
 `
