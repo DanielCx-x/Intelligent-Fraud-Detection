@@ -51,25 +51,36 @@ Place creditcard.csv inside the data/ folder.
 
 ### Training
 
-Training
-The main.py script supports training specific models using the --model argument.
+The `main.py` script supports training specific models using the `--model` argument.
 
-Usage:
+**Usage:**
+```bash
 python src/main.py --model <MODEL_NAME> --epochs <NUM_EPOCHS>
-
 Available Options:
+
 rf: Random Forest
+
 mlp_weighted: MLP with Weighted Loss
+
 mlp_smote: MLP with SMOTE Oversampling
+
 ae: Autoencoder
+
 vae: Variational Autoencoder
+
 all: Train and evaluate ALL models sequentially.
 
 Examples:
-Train the Weighted MLP:
-python src/main.py --model mlp_weighted --epochs 10
 
+Train the Weighted MLP:
+
+Bash
+
+python src/main.py --model mlp_weighted --epochs 10
 Train all models to compare results:
+
+Bash
+
 python src/main.py --model all --epochs 10
 
 ### Demo
