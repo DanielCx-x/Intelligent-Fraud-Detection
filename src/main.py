@@ -110,33 +110,6 @@ def train_autoencoder(X_train, y_train, input_dim, epochs, output_dir):
     torch.save(model.state_dict(), save_path)
     return model
 
-def train_vae(X_train, y_train, input_dim, epochs, output_dir):
-    print("Training VAE (Unsupervised on Normal Data)...")
-    X_train_normal = X_train[y_train == 0]
-    train_loader = to_loader(X_train_normal, X_train_normal, batch_size=256)
-
-    model = VAE(input_dim).to(device)
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
-
-    for epoch in range(epochs * 2):
-        model.train()
-        train_loss = 0
-        for batch_X, _ in train_loader:
-            batch_X = batch_X.to(device)
-            optimizer.zero_grad()
-            recon_batch, mu, logvar = model(batch_X)
-            loss = loss_function_vae(recon_batch, batch_X, mu, logvar)
-            loss.backward()
-            optimizer.step()
-            train_loss += loss.item()
-        
-        if (epoch+1) % 5 == 0:
-            print(f"Epoch {epoch+1} | Loss: {train_loss/len(train_loader):.4f}")
-
-    save_path = os.path.join(output_dir, 'vae.pth')
-    torch.save(model.state_dict(), save_path)
-    return model
-
 # --- Main Execution ---
 
 def main():
@@ -199,16 +172,6 @@ def main():
         # Normalize MSE to 0-1 for probability-like scoring
         probs = (mse - mse.min()) / (mse.max() - mse.min())
         evaluate_model_metrics("Autoencoder", y_test, probs, save_path='results')
-
-    # --- VAE ---
-    if args.model in ['vae', 'all']:
-        vae = train_vae(X_train, y_train, input_dim, args.epochs, args.output_dir)
-        vae.eval()
-        with torch.no_grad():
-            recon, _, _ = vae(X_test_tensor)
-            mse = torch.mean(torch.pow(X_test_tensor - recon, 2), dim=1).cpu().numpy()
-        probs = (mse - mse.min()) / (mse.max() - mse.min())
-        evaluate_model_metrics("VAE", y_test, probs, save_path='results')
 
 if __name__ == "__main__":
     main()
