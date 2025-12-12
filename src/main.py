@@ -4,7 +4,7 @@ import torch.nn as nn
 import os
 import argparse
 import numpy as np
-import joblib # 用于保存 sklearn 模型
+import joblib # to save sklearn model
 from sklearn.ensemble import RandomForestClassifier
 from imblearn.over_sampling import SMOTE
 
