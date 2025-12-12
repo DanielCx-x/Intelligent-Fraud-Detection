@@ -61,7 +61,7 @@ This will:
 After training, run the demo script to simulate inference on random samples:
 
 ```bash
-python demo/demo_inference.py
+python demo.py
 ```
 
 ## Expected Output
