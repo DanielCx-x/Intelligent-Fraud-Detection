@@ -83,16 +83,32 @@ Train all models to compare results:
 ```bash
 python src/main.py --model all --epochs 10
 ```
-### Demo
-The demo script simulates inference on sample data. It works out-of-the-box (no dataset required) by generating synthetic samples or using hardcoded examples.
+### Demo (Inference)
 
-To run the demo:
+The `demo.py` script works **out-of-the-box** (no dataset required). It generates synthetic data to simulate transactions and uses your trained models for inference.
+
+You can select which model to use for the demo using the `--model` argument.
+
+**Usage:**
 ```bash
-python demo/demo.py
+python demo/demo.py --model <MODEL_NAME>
+```
+
+**Examples:**
+Run demo with the Weighted MLP (default):
+```bash
+python demo/demo.py --model mlp_weighted
+```
+Run demo with Autoencoder (Anomaly Detection):
+```bash
+python demo/demo.py --model ae
+```
+Run demo with Random Forest:
+```bash
+python demo/demo.py --model rf
 ```
 
 ## Expected Output
-
 The results will be printed to the console and saved to `results/demo_<model>.txt`.
 
 *Example output (works for ALL models):*
